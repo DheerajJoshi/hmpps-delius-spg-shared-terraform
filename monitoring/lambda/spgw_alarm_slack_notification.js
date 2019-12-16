@@ -24,7 +24,7 @@ exports.handler = function(event, context) {
     postData.attachments = [
         {
             "color": "Warning",
-            "text": "@Semenu @Paul Crimes @Mark Butler ```"+JSON.stringify(eventMessage,null,'\t')+"```"
+            "text": "@Semenu @Paul Crimes @Mark Butler @delius-aws-migration-standup ```"+JSON.stringify(eventMessage,null,'\t')+"```"
         }
     ];
 
