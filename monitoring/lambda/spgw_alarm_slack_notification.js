@@ -17,13 +17,14 @@ exports.handler = function(event, context) {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
         "text": subject + "\n_Environment: "+environment+"_"+"\nAlarm: "+alarmDescription+"\nReason: "+newStateReason,
-        "icon_emoji": ":twisted_rightwards_arrows:"
+        "icon_emoji": ":twisted_rightwards_arrows:",
+        "link_names":"1"
     };
 
     postData.attachments = [
         {
             "color": "Warning",
-            "text": "```"+JSON.stringify(eventMessage,null,'\t')+"```"
+            "text": "@Semenu @Paul Crimes @Mark Butler ```"+JSON.stringify(eventMessage,null,'\t')+"```"
         }
     ];
 

@@ -57,7 +57,7 @@ resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_instances" {
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
   namespace           = "AWS/NetworkELB"
-  period              = "120" #300
+  period              = "300"
   statistic           = "Sum"
   threshold           = "1"
   alarm_description   = "This metric monitors iso_lb_unhealthy_instances"
