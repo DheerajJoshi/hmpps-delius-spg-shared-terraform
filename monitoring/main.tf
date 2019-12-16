@@ -20,5 +20,8 @@ locals {
   spg_app_name             = "${data.terraform_remote_state.common.spg_app_name}"
   lambda_name              = "spgw_alarm_slack_notification"
 
-  mpx_lb_name              = "${data.terraform_remote_state.ecs_mpx.modules.create_app_elb.environment_elb_name}"
+  mpx_lb_name = "${data.terraform_remote_state.ecs_mpx.environment_elb_name}"
+
+  iso_lb_arn_suffix              = "${data.terraform_remote_state.ecs_iso.lb_arn_suffix}"
+  iso_lb_target_group_arn_suffix = "${data.terraform_remote_state.ecs_iso.target_group_arn_suffix}"
 }
