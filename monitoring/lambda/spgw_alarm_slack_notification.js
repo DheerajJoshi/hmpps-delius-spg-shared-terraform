@@ -3,22 +3,22 @@ var util = require('util');
 
 exports.handler = function(event, context) {
     console.log(JSON.stringify(event, null, 2));
-    var channel = event.Records[0].Sns.Subject.split("_")[0].split("\"")[1];
-    var enviro = event.Records[0].Sns.Subject.split("_")[1];
-    var subject = event.Records[0].Sns.Subject.split("_")[2];
+    var enviro = event.Records[0].Sns.Subject.split("__")[0].split("\"")[1];
+    var subject = event.Records[0].Sns.Subject.split("__")[1];
+    var channel = event.Records[0].Sns.Subject.split("__")[2].split("\"")[0];
     console.log("Slack channel: " + channel);
 
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "*" + event.Records[0].Sns.Subject + "*",
+        "text": "_" + subject + "\\n"+enviro+" Environment_",
         "icon_emoji": ":aws:"
     };
 
     postData.attachments = [
         {
             "color": "Warning",
-            "text": "```"+event.Records[0].Sns.Message+"```"
+            "text": "```"+JSON.stringify(event.Records[0].Sns.Message,null,'\t')+"```"
         }
     ];
 

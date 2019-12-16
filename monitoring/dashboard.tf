@@ -1,24 +1,27 @@
 data "template_file" "dashboard_loadbalancer_body" {
   template = "${file("dashboard_loadbalancer.json")}"
+
   vars {
-    region            = "${var.region}"
-    environment_name  = "${local.project_name_abbreviated}"
+    region           = "${var.region}"
+    environment_name = "${local.project_name_abbreviated}"
   }
 }
 
 data "template_file" "dashboard_activemq_body" {
   template = "${file("dashboard_activemq.json")}"
+
   vars {
-    region            = "${var.region}"
-    environment_name  = "${local.project_name_abbreviated}"
+    region           = "${var.region}"
+    environment_name = "${local.project_name_abbreviated}"
   }
 }
 
 data "template_file" "dashboard_spg_instance_body" {
   template = "${file("dashboard_spg_instance.json")}"
+
   vars {
-    region            = "${var.region}"
-    environment_name  = "${local.project_name_abbreviated}"
+    region           = "${var.region}"
+    environment_name = "${local.project_name_abbreviated}"
   }
 }
 
