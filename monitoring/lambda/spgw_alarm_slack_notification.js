@@ -3,7 +3,9 @@ var util = require('util');
 
 exports.handler = function(event, context) {
     console.log(JSON.stringify(event, null, 2));
-    var channel = event.Records[0].Sns.Subject.split("_")[0].split("\"")[1];;
+    var channel = event.Records[0].Sns.Subject.split("_")[0].split("\"")[1];
+    var enviro = event.Records[0].Sns.Subject.split("_")[1];
+    var subject = event.Records[0].Sns.Subject.split("_")[2];
     console.log("Slack channel: " + channel);
 
     var postData = {
@@ -16,7 +18,7 @@ exports.handler = function(event, context) {
     postData.attachments = [
         {
             "color": "Warning",
-            "text": event.Records[0].Sns.Message
+            "text": "```"+event.Records[0].Sns.Message+"```"
         }
     ];
 

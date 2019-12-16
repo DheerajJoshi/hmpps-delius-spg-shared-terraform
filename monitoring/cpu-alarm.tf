@@ -1,6 +1,7 @@
 resource "aws_cloudwatch_metric_alarm" "spgw_crc_cpu" {
-  alarm_name                = "delius-aws-ops-alerts_TEST-spgw-sandpit-crc-alarm-test"
-  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  alarm_name                = "delius-aws-ops-alerts_${local.short_environment_name}_spgw-sandpit-crc-alarm-test"
+//  comparison_operator       = "GreaterThanOrEqualToThreshold"
+  comparison_operator       = "LessThanOrEqualToThreshold"
   evaluation_periods        = "2"
   metric_name               = "CPUUtilization"
   namespace                 = "AWS/EC2"
