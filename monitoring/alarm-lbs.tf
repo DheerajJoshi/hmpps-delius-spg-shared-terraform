@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts" {
-  alarm_name          = "${local.short_environment_name}__mpx-lb-unhealthy-hosts-count__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-unhealthy-hosts-count__delius-aws-ops-alerts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
@@ -16,7 +16,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency" {
-  alarm_name          = "${local.short_environment_name}__mpx-lb-latency__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-latency__delius-aws-ops-alerts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "Latency"
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
-  alarm_name          = "${local.short_environment_name}__mpx-lb-spill-over-count__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-spill-over-count__delius-aws-ops-alerts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "SpilloverCount"
