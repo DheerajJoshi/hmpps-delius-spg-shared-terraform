@@ -28,7 +28,7 @@ resource "aws_cloudwatch_metric_alarm" "spgw_mpx_cpu" {
   period              = "120"
   statistic           = "Average"
   threshold           = "80"
-  alarm_description   = "spgw iso cpu utilization"
+  alarm_description   = "spgw mpx cpu utilization"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
   dimensions {
