@@ -23,7 +23,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency" {
   namespace           = "AWS/ELB"
   period              = "300"
   statistic           = "Average"
-  threshold           = "1"
+  threshold           = "5"
   alarm_description   = "This metric monitors mpx lb Latency"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
   treat_missing_data  = "notBreaching"
@@ -42,7 +42,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
   period              = "300"
   statistic           = "Sum"
   threshold           = "1"
-  alarm_description   = "This metric monitors mpx lb Latency"
+  alarm_description   = "This metric monitors mpx_lb_spillovercount"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
   treat_missing_data  = "notBreaching"
 
@@ -52,20 +52,20 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_instances" {
-  alarm_name          = "${local.short_environment_name}__iso_nlb__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw-iso-nlb__delius-aws-ops-alerts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = "SpilloverCount"
+  metric_name         = "UnHealthyHostCount"
   namespace           = "AWS/NetworkELB"
-  period              = "300"
+  period              = "120" #300
   statistic           = "Sum"
   threshold           = "1"
-  alarm_description   = "This metric monitors mpx lb Latency"
+  alarm_description   = "This metric monitors iso_lb_unhealthy_instances"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
   treat_missing_data  = "notBreaching"
 
   dimensions {
-    TargetGroup  = "targetgroup/dlc-dev-spgw-iso-tg/fa17d85a96906fec"
-    LoadBalancer = "net/dlc-dev-spgw-iso-nlb/74552888a6644e46"
+    TargetGroup  = "${local.iso_lb_target_group_arn_suffix}"
+    LoadBalancer = "${local.iso_lb_arn_suffix}"
   }
 }
