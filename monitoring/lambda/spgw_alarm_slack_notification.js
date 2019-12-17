@@ -20,10 +20,26 @@ exports.handler = function(event, context) {
 
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
 
-    var link_names=0;
+
+    var resolvers = "SPGW Team (not alerted)"
+
+
     if (severity=='critical' || severity=='alert' && environment=='prod'){
-       link_names=1;
+            resolvers=""
+            +"<@UEPGCM2UC> " //Semenu
+            +"<@U6YSHKNBS> " //Paul
+            +"<@U6CNGECSG> " //Mark"
+
     }
+
+    var icon_emoji=":twisted_rightwards_arrows:";
+
+    if (severity=='alert' )
+        icon_emoji = ":warning:";
+
+    if (severity=='critical' )
+       icon_emoji = ":alert:";
+
 
 
 
@@ -34,23 +50,23 @@ exports.handler = function(event, context) {
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "Metric: " + metric
+        "text": "****************************************************************************************"
+        +"\nMetric: " + metric
         + "\nEnvironment: " + environment
         + "\nSeverity: " + severity
         + "\nCause: " + newStateReason
-        + "\nAction: " + alarmDescription ,
-        "icon_emoji": ":twisted_rightwards_arrows:",
-        "link_names": link_names
+        + "\n\nAction: " + alarmDescription
+        +"\n\nResolvers: " + resolvers
+        +"****************************************************************************************"
+        ,
+        "icon_emoji": icon_emoji,
+        "link_names": "1"
     };
 
     postData.attachments = [
         {
             "color": "Warning",
-            "text": "Resolvers: "+
-            "<@UEPGCM2UC> " +//Semenu
-            "<@U6YSHKNBS> " +//Paul
-            "<@U6CNGECSG> " +//Mark
-            JSON.stringify(eventMessage,null,'\t')+"```"
+            "text":  "```"+JSON.stringify(eventMessage,null,'\t')+"```"
         }
     ];
 
