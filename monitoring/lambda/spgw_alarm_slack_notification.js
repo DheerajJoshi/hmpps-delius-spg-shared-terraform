@@ -34,13 +34,13 @@ exports.handler = function(event, context) {
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "Metric: "+subject +
-        "\nEnvironment: "+environment+
-        "\nSeverity: " + severity +
-        "\nCause: "+newStateReason,
-        "\nAction: "+alarmDescription+
+        "text": "Metric: " + metric
+        + "\nEnvironment: " + environment
+        + "\nSeverity: " + severity
+        + "\nCause: " + newStateReason
+        + "\nAction: " + alarmDescription ,
         "icon_emoji": ":twisted_rightwards_arrows:",
-        "link_names":"1"
+        "link_names": link_names
     };
 
     postData.attachments = [

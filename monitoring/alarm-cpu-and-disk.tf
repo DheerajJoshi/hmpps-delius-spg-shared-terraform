@@ -30,9 +30,11 @@ resource "aws_cloudwatch_metric_alarm" "spgw_iso_cpu_warning" {
   period              = "120"
   statistic           = "Average"
   threshold           = "70"
-  alarm_description   = "spgw iso cpu is fairly high!\n"+
-                        "Sometimes POs take their systems offline (and out of hours), this would cause this scenario but would be an ok situation\n"+
-                        "https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1578893538/Monitoring+and+Alerting"
+  alarm_description   = <<EOF
+spgw iso cpu is fairly high!
+Sometimes POs take their systems offline (and out of hours), this would cause this scenario but would be an ok situation
+https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1578893538/Monitoring+and+Alerting
+EOF
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
   dimensions {
@@ -51,9 +53,11 @@ resource "aws_cloudwatch_metric_alarm" "spgw_iso_cpu" {
   period              = "120"
   statistic           = "Average"
   threshold           = "80"
-  alarm_description   = "spgw iso cpu is high!\n"+
-  "Sometimes POs take their systems offline (and out of hours), this would cause this scenario but would be an ok situation\n"+
-  "https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1578893538/Monitoring+and+Alerting"
+  alarm_description   = <<EOF
+spgw iso cpu is high!
+Sometimes POs take their systems offline (and out of hours), this would cause this scenario but would be an ok situation
+https://dsdmoj.atlassian.net/wiki/spaces/DAM/pages/1578893538/Monitoring+and+Alerting
+EOF
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
   dimensions {
