@@ -10,7 +10,7 @@ data "aws_iam_role" "lambda_exec_role" {
 
 resource "aws_lambda_function" "notify-slack" {
   filename         = "${data.archive_file.notify-slack-lambda.output_path}"
-  function_name    = "${local.lambda_name}"
+  function_name    = "${local.short_environment_name}-${local.lambda_name}"
   role             = "${data.aws_iam_role.lambda_exec_role.arn}"
   handler          = "${local.lambda_name}.handler"
   source_code_hash = "${base64sha256(file("${data.archive_file.notify-slack-lambda.output_path}"))}"

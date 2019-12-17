@@ -57,7 +57,6 @@ exports.handler = function(event, context) {
         + "\nCause: " + newStateReason
         + "\n\nAction: " + alarmDescription
         +"\n\nResolvers: " + resolvers
-        +"****************************************************************************************"
         ,
         "icon_emoji": icon_emoji,
         "link_names": "1"
@@ -67,6 +66,7 @@ exports.handler = function(event, context) {
         {
             "color": "Warning",
             "text":  "```"+JSON.stringify(eventMessage,null,'\t')+"```"
+                    +"****************************************************************************************"
         }
     ];
 

@@ -23,7 +23,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount_greater_than_zero"
   metric_name         = "SpilloverCount"
   namespace           = "AWS/ELB"
   period              = "300"
-  statistic           = "Sum"
+  statistic           = "Average"
   threshold           = "1"
   alarm_description   = "This metric monitors mpx_lb_spillovercount"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
