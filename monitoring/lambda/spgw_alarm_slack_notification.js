@@ -15,7 +15,7 @@ exports.handler = function(event, context) {
     var channel = alarmName.split("__")[2].split("\"")[0];
 
 
-#env	service	tier	item	severity	resolvergroup(s)
+    //env	service	    tier	metric	severity	resolvergroup(s)
 
     console.log("Slack channel: " + channel);
 
@@ -25,7 +25,7 @@ exports.handler = function(event, context) {
         "text": "Alarm: "+subject +
         "\n_Environment: "+environment+"_"+
         "\nSeverity: Warning" +
-        "\nResolver Group: Solirius\n"+
+        "\nResolver Group: Solirius"+
         "\nAlarm: "+alarmDescription+
         "\nReason: "+newStateReason,
         "icon_emoji": ":twisted_rightwards_arrows:",
