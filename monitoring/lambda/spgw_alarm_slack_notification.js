@@ -21,14 +21,14 @@ exports.handler = function(event, context) {
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
 
 
-    var resolvers = "SPGW Team (not alerted)"
+    var resolvers = "SPGW Team (who have not been alerted as severity not high enough)"
 
 
     if (severity=='critical' || severity=='alert' && environment=='prod'){
             resolvers=""
             +"<@UEPGCM2UC> " //Semenu
             +"<@U6YSHKNBS> " //Paul
-            +"<@U6CNGECSG> " //Mark"
+            +"<@U6CNGECSG> " //Mark
 
     }
 
@@ -50,7 +50,7 @@ exports.handler = function(event, context) {
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "****************************************************************************************"
+        "text": "**************************************************************************************************"
         +"\nMetric: " + metric
         + "\nEnvironment: " + environment
         + "\nSeverity: " + severity
@@ -65,8 +65,8 @@ exports.handler = function(event, context) {
     postData.attachments = [
         {
             "color": "Warning",
-            "text":  "```"+JSON.stringify(eventMessage,null,'\t')+"```"
-                    +"****************************************************************************************"
+            "text":  "\n```"+JSON.stringify(eventMessage,null,'\t')+"```"
+                    +"**************************************************************************************************"
         }
     ];
 
