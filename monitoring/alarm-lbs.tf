@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts" {
-  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-unhealthy-hosts-count__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-count__alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
@@ -16,7 +16,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_healthy_hosts" {
-  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-healthy-hosts-count__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-healthy-hosts-count__critical"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "HealthyHostCount"
@@ -24,7 +24,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_healthy_hosts" {
   period              = "300"
   statistic           = "Average"
   threshold           = "1"
-  alarm_description   = "This metric monitors mpx lb healthy host count"
+  alarm_description   = "No Healthy Hosts!!!"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
   dimensions {
@@ -33,7 +33,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_healthy_hosts" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency" {
-  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-latency__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-latency__warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "Latency"
@@ -51,7 +51,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
-  alarm_name          = "${local.short_environment_name}__spgw-mpx-lb-spill-over-count__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-spill-over-count__warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "SpilloverCount"
@@ -68,8 +68,11 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
   }
 }
 
+
+
+
 resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts" {
-  alarm_name          = "${local.short_environment_name}__spgw-iso-nlb-unhealthy__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-unhealthy__alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
@@ -88,7 +91,7 @@ resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "iso_lb_healthy_hosts" {
-  alarm_name          = "${local.short_environment_name}__spgw-iso-nlb-healthy__delius-aws-ops-alerts"
+  alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-healthy__critical"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "HealthyHostCount"

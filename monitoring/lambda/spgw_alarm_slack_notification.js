@@ -11,23 +11,34 @@ exports.handler = function(event, context) {
 
 
     var environment = alarmName.split("__")[0];
-    var subject = alarmName.split("__")[1];
-    var channel = alarmName.split("__")[2].split("\"")[0];
+    var service = alarmName.split("__")[1];
+    var metric = alarmName.split("__")[2];
+    var severity = alarmName.split("__")[3];
 
 
-    //env	service	    tier	metric	severity	resolvergroup(s)
+    var subChannelForEnvironment=(environment=='prod') ? "production" : "nonprod";
+
+    var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
+
+    var link_names=0;
+    if (severity=='critical' || severity=='alert' && environment=='prod'){
+       link_names=1;
+    }
+
+
+
+    //environment	service	    tier	metric	severity	resolvergroup(s)
 
     console.log("Slack channel: " + channel);
 
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "Alarm: "+subject +
-        "\n_Environment: "+environment+"_"+
-        "\nSeverity: Warning" +
-        "\nResolver Group: Solirius"+
-        "\nAlarm: "+alarmDescription+
-        "\nReason: "+newStateReason,
+        "text": "Metric: "+subject +
+        "\nEnvironment: "+environment+
+        "\nSeverity: " + severity +
+        "\nCause: "+newStateReason,
+        "\nAction: "+alarmDescription+
         "icon_emoji": ":twisted_rightwards_arrows:",
         "link_names":"1"
     };
@@ -35,7 +46,11 @@ exports.handler = function(event, context) {
     postData.attachments = [
         {
             "color": "Warning",
-            "text": "<@UEPGCM2UC> <@Mark Butler> @delius-aws-migration-standup ```"+JSON.stringify(eventMessage,null,'\t')+"```"
+            "text": "Resolvers: "+
+            "<@UEPGCM2UC> " +//Semenu
+            "<@U6YSHKNBS> " +//Paul
+            "<@U6CNGECSG> " +//Mark
+            JSON.stringify(eventMessage,null,'\t')+"```"
         }
     ];
 
