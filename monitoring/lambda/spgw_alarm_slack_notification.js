@@ -3,20 +3,31 @@ var util = require('util');
 
 exports.handler = function(event, context) {
     console.log(JSON.stringify(event, null, 2));
-    var environment = event.Records[0].Sns.Subject.split("__")[0].split("\"")[1];
-    var subject = event.Records[0].Sns.Subject.split("__")[1];
-    var channel = event.Records[0].Sns.Subject.split("__")[2].split("\"")[0];
 
     var eventMessage = JSON.parse(event.Records[0].Sns.Message);
+    var alarmName = eventMessage.AlarmName;
     var alarmDescription = eventMessage.AlarmDescription;
     var newStateReason = eventMessage.NewStateReason;
+
+
+    var environment = alarmName.split("__")[0];
+    var subject = alarmName.split("__")[1];
+    var channel = alarmName.split("__")[2].split("\"")[0];
+
+
+#env	service	tier	item	severity	resolvergroup(s)
 
     console.log("Slack channel: " + channel);
 
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": subject + "\n_Environment: "+environment+"_"+"\nAlarm: "+alarmDescription+"\nReason: "+newStateReason,
+        "text": "Alarm: "+subject +
+        "\n_Environment: "+environment+"_"+
+        "\nSeverity: Warning" +
+        "\nResolver Group: Solirius\n"+
+        "\nAlarm: "+alarmDescription+
+        "\nReason: "+newStateReason,
         "icon_emoji": ":twisted_rightwards_arrows:",
         "link_names":"1"
     };

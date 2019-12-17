@@ -68,7 +68,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_spillovercount" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_instances" {
+resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts" {
   alarm_name          = "${local.short_environment_name}__spgw-iso-nlb-unhealthy__delius-aws-ops-alerts"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -87,7 +87,7 @@ resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_instances" {
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "iso_lb_healthy_instances" {
+resource "aws_cloudwatch_metric_alarm" "iso_lb_healthy_hosts" {
   alarm_name          = "${local.short_environment_name}__spgw-iso-nlb-healthy__delius-aws-ops-alerts"
   comparison_operator = "LessThanOrEqualToThreshold"
   evaluation_periods  = "1"
