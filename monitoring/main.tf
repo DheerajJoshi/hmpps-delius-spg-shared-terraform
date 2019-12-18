@@ -24,4 +24,7 @@ locals {
 
   iso_lb_arn_suffix              = "${data.terraform_remote_state.ecs_iso.lb_arn_suffix}"
   iso_lb_target_group_arn_suffix = "${data.terraform_remote_state.ecs_iso.target_group_arn_suffix}"
+
+  iso_log_group_name              = "${data.terraform_remote_state.ecs_iso.loggroup_name}"
+
 }
