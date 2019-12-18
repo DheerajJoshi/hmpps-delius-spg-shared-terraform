@@ -66,7 +66,6 @@ exports.handler = function(event, context) {
         {
             "color": "Warning",
             "text":  "\n```"+JSON.stringify(eventMessage,null,'\t')+"```"
-                    +"**************************************************************************************************"
         }
     ];
 

@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_metric_filter" "iso_alert_filter_count_1" {
   log_group_name = "${local.iso_log_group_name}"
 
   metric_transformation {
-    name = "EventCount"
+    name = "iso-alert-count"
     namespace = "SPGW"
     value = "1"
   }
@@ -16,14 +16,13 @@ resource "aws_cloudwatch_log_metric_filter" "iso_alert_filter_count_1" {
 resource "aws_cloudwatch_metric_alarm" "spgw_iso_alert_warning" {
   alarm_name = "${local.short_environment_name}__spgw__iso-alert__warning"
 
-  //  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = "${aws_cloudwatch_log_metric_filter.iso_alert_filter_count_1.name}"
-  namespace           = "AWS/EC2"
-  period              = "120"
+  metric_name         = "iso-alert-count"
+  namespace           = "SPGW"
+  period              = "300"
   statistic           = "Average"
-  threshold           = "70"
+  threshold           = "1"
   alarm_description   = <<EOF
 ALERT encountered
 EOF
@@ -43,7 +42,7 @@ resource "aws_cloudwatch_log_metric_filter" "iso_exception_filter_count_1" {
   log_group_name = "${local.iso_log_group_name}"
 
   metric_transformation {
-    name = "EventCount"
+    name = "iso-exception-count"
     namespace = "SPGW"
     value = "1"
   }
@@ -52,14 +51,13 @@ resource "aws_cloudwatch_log_metric_filter" "iso_exception_filter_count_1" {
 resource "aws_cloudwatch_metric_alarm" "spgw_iso_exception_warning" {
   alarm_name = "${local.short_environment_name}__spgw__iso-exception__warning"
 
-  //  comparison_operator       = "GreaterThanOrEqualToThreshold"
-  comparison_operator = "LessThanOrEqualToThreshold"
+  comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
-  metric_name         = "${aws_cloudwatch_log_metric_filter.iso_exception_filter_count_1.name}"
-  namespace           = "AWS/EC2"
-  period              = "120"
+  metric_name         = "iso-exception-count"
+  namespace           = "SPGW"
+  period              = "300"
   statistic           = "Average"
-  threshold           = "70"
+  threshold           = "1"
   alarm_description   = <<EOF
 Exception encountered
 EOF
