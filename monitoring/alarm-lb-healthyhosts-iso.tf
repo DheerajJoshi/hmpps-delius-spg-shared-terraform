@@ -26,7 +26,7 @@ resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_at_least_one_for_
   namespace           = "AWS/NetworkELB"
   period              = "300"
   statistic           = "Average"
-  threshold           = "1"
+  threshold           = "6"
   alarm_description   = "Some hosts have been unhealthy for half an hour"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 

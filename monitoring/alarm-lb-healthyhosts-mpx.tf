@@ -17,14 +17,14 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_greater_than_zero
 
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_at_least_one_for_30_mins" {
-  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-count__alert"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-for-30-mins-count__alert"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "6"
   metric_name         = "UnHealthyHostCount"
   namespace           = "AWS/ELB"
   period              = "300"
   statistic           = "Average"
-  threshold           = "1"
+  threshold           = "6"
   alarm_description   = "Some hosts have been unhealthy for half an hour"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
