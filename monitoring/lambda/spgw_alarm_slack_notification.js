@@ -8,6 +8,7 @@ exports.handler = function(event, context) {
     var alarmName = eventMessage.AlarmName;
     var alarmDescription = eventMessage.AlarmDescription;
     var newStateReason = eventMessage.NewStateReason;
+
     var comparisonOperator = eventMessage.Trigger.ComparisonOperator;
     var threshold = eventMessage.Trigger.Threshold;
     var metricName= eventMessage.Trigger.MetricName;
@@ -63,7 +64,7 @@ exports.handler = function(event, context) {
     console.log("Slack channel: " + channel);
 
     var debug="";
-//    var debug="\n\ndebug:```eventMessage```";
+//    var debug="\n```"+JSON.stringify(eventMessage,null,'\t')+"```";
 
     var textMessage="**************************************************************************************************"
                             +"\nMetric: " + metric
@@ -74,9 +75,9 @@ exports.handler = function(event, context) {
      if (severity=='warning' || severity=='critical' || severity=='fatal')
 
      { textMessage=textMessage
-          + "\nMetricName: " + metricName;
-          + "\nComparisonOperator: " + comparisonOperator;
-          + "\nThreshold: " + threshold;
+          + "\nMetricName: " + metricName
+          + "\nComparisonOperator: " + comparisonOperator
+          + "\nThreshold: " + threshold
           + "\n\nAction: " + alarmDescription
           + resolvers;
      }
@@ -92,12 +93,7 @@ exports.handler = function(event, context) {
         "link_names": "1"
     };
 
-    postData.attachments = [
-        {
-            "color": "Warning",
-            "text":  "\n```"+JSON.stringify(eventMessage,null,'\t')+"```"
-        }
-    ];
+
 
     var options = {
         method: 'POST',
