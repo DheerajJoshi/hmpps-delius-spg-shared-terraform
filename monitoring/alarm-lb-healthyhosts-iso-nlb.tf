@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_greater_than_zero_for_5_mins" {
-  alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-unhealthy__critical"
+  alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-unhealthy__warning"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"

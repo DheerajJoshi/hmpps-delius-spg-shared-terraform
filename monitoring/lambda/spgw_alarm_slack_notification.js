@@ -17,6 +17,11 @@ exports.handler = function(event, context) {
     if (eventMessage.NewStateValue == "OK")
         severity=='ok';
 
+    if (eventMessage.NewStateValue == "INSUFFICIENT_DATA")
+        severity=='insufficent data';
+
+
+
     var subChannelForEnvironment=(environment=='prod') ? "production" : "nonprod";
 
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
@@ -49,28 +54,30 @@ exports.handler = function(event, context) {
 
 
 
-
-    //environment	service	    tier	metric	severity	resolvergroup(s)
-
     console.log("Slack channel: " + channel);
 
 //    var debug="";
     var debug="\n\ndebug:```eventMessage```";
+
+    var textMessage="**************************************************************************************************"
+                            +"\nMetric: " + metric
+                            + "\nEnvironment: " + environment
+                            + "\nSeverity: " + severity
+                            + "\nCause: " + newStateReason;
+
+     if (severity=='warning' || severity=='critical' || severity=='fatal')
+     { textMessage=textMessage
+          + "\n\nAction: " + alarmDescription
+          +"\n\nResolvers: " + resolvers;
+     }
+    textMessage=textMessage+debug;
 
 
 
     var postData = {
         "channel": "# " + channel,
         "username": "AWS SNS via Lambda :: Alarm notification",
-        "text": "**************************************************************************************************"
-        +"\nMetric: " + metric
-        + "\nEnvironment: " + environment
-        + "\nSeverity: " + severity
-        + "\nCause: " + newStateReason
-        + "\n\nAction: " + alarmDescription
-        +"\n\nResolvers: " + resolvers
-        +debug
-        ,
+        "text": textMessage,
         "icon_emoji": icon_emoji,
         "link_names": "1"
     };
