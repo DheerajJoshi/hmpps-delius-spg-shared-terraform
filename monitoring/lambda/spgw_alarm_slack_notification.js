@@ -69,7 +69,7 @@ exports.handler = function(event, context) {
     var textMessage="**************************************************************************************************"
                             +"\nMetric: " + metric
                             + "\nEnvironment: " + environment
-                            + "\nSeverity: " + icon_emoji+severity;
+                            + "\nSeverity: " + icon_emoji+" "+severity;
 
 
      if (severity=='warning' || severity=='critical' || severity=='fatal')
