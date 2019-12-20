@@ -18,7 +18,7 @@ resource "aws_cloudwatch_metric_alarm" "spgw_iso_alert_warning" {
   metric_name         = "iso-alert-count"
   namespace           = "SPGW"
   period              = "300"
-  statistic           = "Average"
+  statistic           = "Sum"
   threshold           = "1"
 
   treat_missing_data = "notBreaching"
@@ -56,7 +56,7 @@ resource "aws_cloudwatch_metric_alarm" "spgw_iso_exception_warning" {
   metric_name         = "iso-exception-count"
   namespace           = "SPGW"
   period              = "300"
-  statistic           = "Average"
+  statistic           = "Sum"
   threshold           = "1"
 
   treat_missing_data = "notBreaching"
