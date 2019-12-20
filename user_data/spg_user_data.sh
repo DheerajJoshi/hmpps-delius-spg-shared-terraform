@@ -16,7 +16,7 @@ cat > /etc/awslogs/awslogs.conf <<- EOF
 state_file = /var/lib/awslogs/agent-state
 
 [application_log]
-file = /var/log/${container_name}/*.log
+file = /var/log/${container_name}/*.log*
 log_group_name = ${log_group_name}
 log_stream_name = {hostname}/{container_instance_id}/application
 

@@ -15,14 +15,14 @@ exports.handler = function(event, context) {
     var metric = alarmName.split("__")[2];
     var severity = alarmName.split("__")[3];
     if (eventMessage.NewStateValue == "OK")
-        severity=='ok';
+        severity='ok';
 
     if (eventMessage.NewStateValue == "INSUFFICIENT_DATA")
-        severity=='insufficent data';
+        severity='insufficient data';
 
 
 
-    var subChannelForEnvironment=(environment=='prod') ? "production" : "nonprod";
+    var subChannelForEnvironment=(environment=='del-prod') ? "production" : "nonprod";
 
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
 
@@ -62,7 +62,7 @@ exports.handler = function(event, context) {
     var textMessage="**************************************************************************************************"
                             +"\nMetric: " + metric
                             + "\nEnvironment: " + environment
-                            + "\nSeverity: " + severity
+                            + "\nSeverity: " + icon_emoji+severity
                             + "\nCause: " + newStateReason;
 
      if (severity=='warning' || severity=='critical' || severity=='fatal')
