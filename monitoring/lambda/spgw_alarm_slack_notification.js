@@ -14,7 +14,8 @@ exports.handler = function(event, context) {
     var service = alarmName.split("__")[1];
     var metric = alarmName.split("__")[2];
     var severity = alarmName.split("__")[3];
-
+    if (eventMessage.NewStateValue == "OK")
+        severity=='ok';
 
     var subChannelForEnvironment=(environment=='prod') ? "production" : "nonprod";
 
@@ -34,10 +35,16 @@ exports.handler = function(event, context) {
 
     var icon_emoji=":twisted_rightwards_arrows:";
 
-    if (severity=='alert' )
-        icon_emoji = ":warning:";
+
 
     if (severity=='critical' )
+        icon_emoji = ":warning:";
+
+
+    if (severity=='critical' )
+        icon_emoji = ":siren:";
+
+    if (severity=='fatal' )
        icon_emoji = ":alert:";
 
 
@@ -46,6 +53,11 @@ exports.handler = function(event, context) {
     //environment	service	    tier	metric	severity	resolvergroup(s)
 
     console.log("Slack channel: " + channel);
+
+//    var debug="";
+    var debug="\n\ndebug:```eventMessage```";
+
+
 
     var postData = {
         "channel": "# " + channel,
@@ -57,6 +69,7 @@ exports.handler = function(event, context) {
         + "\nCause: " + newStateReason
         + "\n\nAction: " + alarmDescription
         +"\n\nResolvers: " + resolvers
+        +debug
         ,
         "icon_emoji": icon_emoji,
         "link_names": "1"

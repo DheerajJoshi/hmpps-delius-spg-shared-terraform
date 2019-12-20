@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_greater_than_zero" {
-  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-count__alert"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-count__critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
@@ -18,7 +18,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_greater_than_zero
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_at_least_one_for_30_mins" {
-  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-for-30-mins-count__alert"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-unhealthy-hosts-for-30-mins-count__critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "6"
   metric_name         = "UnHealthyHostCount"
@@ -37,7 +37,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_unhealthy_hosts_at_least_one_for_
 }
 
 resource "aws_cloudwatch_metric_alarm" "mpx_lb_healthy_hosts_less_than_one" {
-  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-healthy-hosts-count__critical"
+  alarm_name          = "${local.short_environment_name}__spgw__mpx-lb-healthy-hosts-count__fatal"
   comparison_operator = "LessThanThreshold"
   evaluation_periods  = "1"
   metric_name         = "HealthyHostCount"
