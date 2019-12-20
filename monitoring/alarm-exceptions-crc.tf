@@ -4,7 +4,7 @@ resource "aws_cloudwatch_log_metric_filter" "crc_alert_filter_count_1" {
   log_group_name = "${local.crc_log_group_name}"
 
   metric_transformation {
-    name      = "crc-alert-count"
+    name      = "${local.short_environment_name}-crc-alert-count"
     namespace = "SPGW"
     value     = "1"
   }
@@ -36,13 +36,15 @@ EOF
   }
 }
 
+
+
 resource "aws_cloudwatch_log_metric_filter" "crc_exception_filter_count_1" {
   name           = "${local.short_environment_name}__spgw__crc-exception-filter"
   pattern        = "Exception"
   log_group_name = "${local.crc_log_group_name}"
 
   metric_transformation {
-    name      = "crc-exception-count"
+    name      = "${local.short_environment_name}-crc-exception-count"
     namespace = "SPGW"
     value     = "1"
   }
