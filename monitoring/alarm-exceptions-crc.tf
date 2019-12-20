@@ -21,6 +21,8 @@ resource "aws_cloudwatch_metric_alarm" "spgw_crc_alert_warning" {
   statistic           = "Sum"
   threshold           = "1"
 
+  treat_missing_data = "notBreaching"
+
   alarm_description = <<EOF
 ALERT encountered
 EOF
@@ -56,6 +58,8 @@ resource "aws_cloudwatch_metric_alarm" "spgw_crc_exception_warning" {
   period              = "300"
   statistic           = "Sum"
   threshold           = "1"
+
+  treat_missing_data = "notBreaching"
 
   alarm_description = <<EOF
 Exception encountered

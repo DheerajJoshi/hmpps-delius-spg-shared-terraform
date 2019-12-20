@@ -21,6 +21,8 @@ resource "aws_cloudwatch_metric_alarm" "spgw_mpx_alert_warning" {
   statistic           = "Average"
   threshold           = "1"
 
+  treat_missing_data = "notBreaching"
+
   alarm_description = <<EOF
 ALERT encountered
 EOF
@@ -56,6 +58,8 @@ resource "aws_cloudwatch_metric_alarm" "spgw_mpx_exception_warning" {
   period              = "300"
   statistic           = "Average"
   threshold           = "1"
+
+  treat_missing_data = "notBreaching"
 
   alarm_description = <<EOF
 Exception encountered
