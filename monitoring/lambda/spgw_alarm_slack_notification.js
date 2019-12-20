@@ -8,6 +8,10 @@ exports.handler = function(event, context) {
     var alarmName = eventMessage.AlarmName;
     var alarmDescription = eventMessage.AlarmDescription;
     var newStateReason = eventMessage.NewStateReason;
+    var comparisonOperator = eventMessage.Trigger.ComparisonOperator;
+    var threshold = eventMessage.Trigger.Threshold;
+    var metricName= eventMessage.Trigger.MetricName;
+
 
 
     var environment = alarmName.split("__")[0];
@@ -27,11 +31,11 @@ exports.handler = function(event, context) {
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
 
 
-    var resolvers = "SPGW Team (who have not been alerted as severity not high enough)"
+    var resolvers = ""
 
 
-    if (severity=='critical' || severity=='alert' && environment=='prod'){
-            resolvers=""
+    if (severity=='fatal' || severity=='critical' && environment=='del-prod'){
+            resolvers="\n\nNotified:"
             +"<@UEPGCM2UC> " //Semenu
             +"<@U6YSHKNBS> " //Paul
             +"<@U6CNGECSG> " //Mark
@@ -40,9 +44,11 @@ exports.handler = function(event, context) {
 
     var icon_emoji=":twisted_rightwards_arrows:";
 
+    if (severity=='warning' )
+        icon_emoji = ":heavy_tick:";
 
 
-    if (severity=='critical' )
+    if (severity=='warning' )
         icon_emoji = ":warning:";
 
 
@@ -56,19 +62,23 @@ exports.handler = function(event, context) {
 
     console.log("Slack channel: " + channel);
 
-//    var debug="";
-    var debug="\n\ndebug:```eventMessage```";
+    var debug="";
+//    var debug="\n\ndebug:```eventMessage```";
 
     var textMessage="**************************************************************************************************"
                             +"\nMetric: " + metric
                             + "\nEnvironment: " + environment
-                            + "\nSeverity: " + icon_emoji+severity
-                            + "\nCause: " + newStateReason;
+                            + "\nSeverity: " + icon_emoji+severity;
+
 
      if (severity=='warning' || severity=='critical' || severity=='fatal')
+
      { textMessage=textMessage
+          + "\nMetricName: " + metricName;
+          + "\nComparisonOperator: " + comparisonOperator;
+          + "\nThreshold: " + threshold;
           + "\n\nAction: " + alarmDescription
-          +"\n\nResolvers: " + resolvers;
+          + resolvers;
      }
     textMessage=textMessage+debug;
 

@@ -18,11 +18,7 @@ EOF
   alarm_actions = ["${aws_sns_topic.alarm_notification.arn}"]
 
   ok_actions = ["${aws_sns_topic.alarm_notification.arn}"]
-
-
 }
-
-
 
 resource "aws_cloudwatch_metric_alarm" "spgw_mpx_exception_warning" {
   alarm_name = "${local.short_environment_name}__spgw-mpx__logexception__warning"
@@ -44,5 +40,4 @@ EOF
   alarm_actions = ["${aws_sns_topic.alarm_notification.arn}"]
 
   ok_actions = ["${aws_sns_topic.alarm_notification.arn}"]
-
 }

@@ -1,12 +1,12 @@
 resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_greater_than_zero_for_5_mins" {
   alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-unhealthy__warning"
-  comparison_operator = "GreaterThanOrEqualToThreshold"
+  comparison_operator = "GreaterThanThreshold"
   evaluation_periods  = "1"
   metric_name         = "UnHealthyHostCount"
   namespace           = "AWS/NetworkELB"
   period              = "300"
-  statistic           = "Average"
-  threshold           = "1"
+  statistic           = "Sum"
+  threshold           = "0"
   alarm_description   = "Some hosts are unhealthy"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
@@ -18,14 +18,14 @@ resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_greater_than_zero
   }
 }
 
-resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_at_least_one_for_30_mins" {
+resource "aws_cloudwatch_metric_alarm" "iso_lb_unhealthy_hosts_at_least_one_for_30_mins_critical" {
   alarm_name          = "${local.short_environment_name}__spgw__iso-nlb-unhealthy__critical"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "6"
   metric_name         = "UnHealthyHostCount"
   namespace           = "AWS/NetworkELB"
   period              = "300"
-  statistic           = "Average"
+  statistic           = "Sum"
   threshold           = "6"
   alarm_description   = "Some hosts have been unhealthy for half an hour"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
