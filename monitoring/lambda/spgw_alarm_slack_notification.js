@@ -45,7 +45,7 @@ exports.handler = function(event, context) {
 
     var icon_emoji=":twisted_rightwards_arrows:";
 
-    if (severity=='warning' )
+    if (severity=='ok' )
         icon_emoji = ":heavy_tick:";
 
 
