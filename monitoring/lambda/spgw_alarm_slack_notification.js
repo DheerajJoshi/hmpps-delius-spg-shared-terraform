@@ -19,12 +19,15 @@ exports.handler = function(event, context) {
     var service = alarmName.split("__")[1];
     var metric = alarmName.split("__")[2];
     var severity = alarmName.split("__")[3];
-    if (eventMessage.NewStateValue == "OK")
+    if (eventMessage.NewStateValue == "OK") {
         severity='ok';
+        if (eventMessage.OldStateValue =="INSUFFICIENT_DATA") {
+            return 0;//do not want to generate alert simply moving from insufficient data to ok
+            }
+        }
 
     if (eventMessage.NewStateValue == "INSUFFICIENT_DATA")
         severity='insufficient data';
-
 
 
     var subChannelForEnvironment=(environment=='del-prod') ? "production" : "nonprod";
@@ -32,7 +35,7 @@ exports.handler = function(event, context) {
     var channel="delius-alerts-"+service+"-"+subChannelForEnvironment;
 
 
-    var resolvers = ""
+    var resolvers = "";
 
 
     if (severity=='fatal' || severity=='critical' && environment=='del-prod'){
@@ -40,13 +43,14 @@ exports.handler = function(event, context) {
             +"<@UEPGCM2UC> " //Semenu
             +"<@U6YSHKNBS> " //Paul
             +"<@U6CNGECSG> " //Mark
+            +"<@URCECP8RX>" //Martin
 
     }
 
     var icon_emoji=":twisted_rightwards_arrows:";
 
     if (severity=='ok' )
-        icon_emoji = ":heavy_tick:";
+        icon_emoji = ":ok:";
 
 
     if (severity=='warning' )
@@ -69,17 +73,22 @@ exports.handler = function(event, context) {
     var textMessage="**************************************************************************************************"
                             +"\nMetric: " + metric
                             + "\nEnvironment: " + environment
-                            + "\nSeverity: " + icon_emoji+severity;
+                            + "\nSeverity: " +severity+"\n";
 
 
      if (severity=='warning' || severity=='critical' || severity=='fatal')
 
      { textMessage=textMessage
-          + "\nMetricName: " + metricName
-          + "\nComparisonOperator: " + comparisonOperator
-          + "\nThreshold: " + threshold
+          + "\n*" + metricName + " is "
+          +  comparisonOperator + " of "
+          +  threshold +"*"
           + "\n\nAction: " + alarmDescription
           + resolvers;
+     }
+     else
+     { textMessage=textMessage
+                + "\n\nNo Action Required";
+
      }
     textMessage=textMessage+debug;
 

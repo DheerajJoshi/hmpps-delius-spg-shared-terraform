@@ -7,6 +7,7 @@ resource "aws_cloudwatch_metric_alarm" "mpx_lb_latency_greater_than_5_seconds" {
   period              = "300"
   statistic           = "Average"
   threshold           = "5"
+  treat_missing_data  = "notBreaching"
   alarm_description   = "This metric monitors mpx lb Latency"
   alarm_actions       = ["${aws_sns_topic.alarm_notification.arn}"]
 
