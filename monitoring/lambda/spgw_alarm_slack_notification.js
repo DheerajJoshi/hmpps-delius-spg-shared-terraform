@@ -79,7 +79,8 @@ exports.handler = function(event, context) {
      if (severity=='warning' || severity=='critical' || severity=='fatal')
 
      { textMessage=textMessage
-          + "\n*" + metricName + " is "
+          + "\n"+icon_emoji
+          + " *" + metricName + " is "
           +  comparisonOperator + " of "
           +  threshold +"*"
           + "\n\nAction: " + alarmDescription
@@ -87,7 +88,7 @@ exports.handler = function(event, context) {
      }
      else
      { textMessage=textMessage
-                + "\n\nNo Action Required";
+                + "\n\n:ok: No Action Required :-)";
 
      }
     textMessage=textMessage+debug;
