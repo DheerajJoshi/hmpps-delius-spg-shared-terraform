@@ -4,12 +4,14 @@
       "type": "metric",
       "x": 0,
       "y": 24,
-      "width": 6,
+      "width": 9,
       "height": 3,
       "properties": {
         "metrics": [
           [ "AWS/AmazonMQ", "TotalMessageCount", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1" ],
-          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1", { "visible": false } ]
+          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2" ]
+
+
         ],
         "view": "singleValue",
         "region": "eu-west-2",
@@ -18,15 +20,18 @@
         "stat": "Average"
       }
     },
+
+
     {
       "type": "metric",
-      "x": 6,
+      "x": 9,
       "y": 24,
-      "width": 3,
+      "width": 9,
       "height": 3,
       "properties": {
         "metrics": [
-          [ "AWS/AmazonMQ", "CpuUtilization", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1", { "id": "m1" } ]
+          [ "AWS/AmazonMQ", "CpuUtilization", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1", { "id": "m1" } ],
+          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2" ]
         ],
         "view": "singleValue",
         "region": "eu-west-2",
@@ -35,6 +40,11 @@
         "stat": "Average"
       }
     },
+
+
+
+
+
     {
       "type": "metric",
       "x": 0,
@@ -53,10 +63,20 @@
           [ "...", "outbound.crc.MTC" ],
           [ "...", "outbound.crc.POSTUB" ],
           [ "...", "outbound.delius" ],
+          [ "...", "outbound.alfresco" ],
+
+          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2", ".", "outbound.crc.STC" ],
+          [ "...", "outbound.crc.PingEndpoints" ],
+          [ "...", "outbound.crc.PF" ],
+          [ "...", "outbound.crc.PFA" ],
+          [ "...", "outbound.crc.PFB" ],
+          [ "...", "outbound.crc.MTC" ],
+          [ "...", "outbound.crc.POSTUB" ],
+          [ "...", "outbound.delius" ],
           [ "...", "outbound.alfresco" ]
         ],
         "region": "eu-west-2",
-        "title": "queue size broker 1"
+        "title": "queue size"
       }
     },
     {
@@ -67,9 +87,22 @@
       "height": 6,
       "properties": {
         "metrics": [
-          [ "AWS/AmazonMQ", "EnqueueCount", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1", "Topic", "ActiveMQ.Advisory.MasterBroker", { "visible": false } ],
-          [ ".", "InFlightCount", ".", ".", ".", "." ],
-          [ "...", "Queue", "toSPGQueue" ],
+          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "dlc-dev-SPG-AMQ-Broker-1", "Queue", "toSPGQueue" ],
+          [ "...", "outbound.delius" ],
+          [ "...", "outbound.crc.MTC" ],
+          [ "...", "FromNDeliusError.DLQ" ],
+          [ "...", "outbound.crc.PingEndpoints" ],
+          [ "...", "outbound.crc.POSTUB" ],
+          [ "...", "outbound.crc.STC" ],
+          [ "...", "outbound.alfresco" ],
+          [ "...", "fromNdelius" ],
+          [ "...", "outbound.crc.PF" ],
+          [ "...", "outbound.crc.PFA" ],
+          [ "...", "outbound.crc.PFB" ],
+          [ "...", "fromDocumentRepository" ],
+          [ "...", "ActiveMQ.DLQ" ],
+
+          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "dlc-dev-SPG-AMQ-Broker-2", "Queue", "toSPGQueue" ],
           [ "...", "outbound.delius" ],
           [ "...", "outbound.crc.MTC" ],
           [ "...", "FromNDeliusError.DLQ" ],
@@ -115,6 +148,21 @@
           [ "...", "outbound.alfresco" ],
           [ "...", "outbound.crc.POSTUB" ],
           [ "...", "outbound.crc.PingEndpoints" ],
+          [ "...", "fromDocumentRepository" ],
+
+          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2", ".", "outbound.crc.PF" ],
+          [ "...", "outbound.crc.PFA" ],
+          [ "...", "outbound.crc.PFB" ],
+          [ "...", "outbound.crc.STC" ],
+          [ "...", "outbound.delius" ],
+          [ "...", "ActiveMQ.DLQ" ],
+          [ "...", "fromNdelius" ],
+          [ "...", "toSPGQueue" ],
+          [ "...", "FromNDeliusError.DLQ" ],
+          [ "...", "outbound.crc.MTC" ],
+          [ "...", "outbound.alfresco" ],
+          [ "...", "outbound.crc.POSTUB" ],
+          [ "...", "outbound.crc.PingEndpoints" ],
           [ "...", "fromDocumentRepository" ]
         ],
         "region": "eu-west-2",
@@ -141,7 +189,23 @@
           [ "...", "FromNDeliusError.DLQ" ],
           [ "...", "fromDocumentRepository" ],
           [ "...", "outbound.crc.PingEndpoints", { "visible": false } ],
+          [ "...", "outbound.crc.POSTUB" ],
+
+
+          [ "...", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2", ".", "fromNdelius" ],
+          [ "...", "outbound.crc.MTC" ],
+          [ "...", "outbound.crc.PF" ],
+          [ "...", "outbound.crc.PFA" ],
+          [ "...", "outbound.crc.PFB" ],          [ "...", "outbound.alfresco" ],
+          [ "...", "toSPGQueue" ],
+          [ "...", "ActiveMQ.DLQ", { "visible": false } ],
+          [ "...", "outbound.delius" ],
+          [ "...", "outbound.crc.STC" ],
+          [ "...", "FromNDeliusError.DLQ" ],
+          [ "...", "fromDocumentRepository" ],
+          [ "...", "outbound.crc.PingEndpoints", { "visible": false } ],
           [ "...", "outbound.crc.POSTUB" ]
+
         ],
         "view": "timeSeries",
         "stacked": false,

@@ -25,14 +25,7 @@ data "template_file" "dashboard_activemq_1_body" {
   }
 }
 
-data "template_file" "dashboard_activemq_2_body" {
-  template = "${file("dashboard_activemq_broker_2.json")}"
 
-  vars {
-    region                  = "${var.region}"
-    hmpps_asset_name_prefix = "${local.hmpps_asset_name_prefix}"
-  }
-}
 
 data "template_file" "dashboard_spg_instance_body" {
   template = "${file("dashboard_spg_instance.json")}"
@@ -54,14 +47,11 @@ resource "aws_cloudwatch_dashboard" "alert_count" {
 }
 
 resource "aws_cloudwatch_dashboard" "amq_monitoring_broker_1" {
-  dashboard_name = "${local.spg_app_name}_activemq_monitoring_1"
+  dashboard_name = "${local.spg_app_name}_activemq_monitoring"
   dashboard_body = "${data.template_file.dashboard_activemq_1_body.rendered}"
 }
 
-resource "aws_cloudwatch_dashboard" "amq_monitoring_broker_2" {
-  dashboard_name = "${local.spg_app_name}_activemq_monitoring_2"
-  dashboard_body = "${data.template_file.dashboard_activemq_2_body.rendered}"
-}
+
 
 resource "aws_cloudwatch_dashboard" "spg_instance_monitoring" {
   dashboard_name = "${local.spg_app_name}_instance_monitoring"
