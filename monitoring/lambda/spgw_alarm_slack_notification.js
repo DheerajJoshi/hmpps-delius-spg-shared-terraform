@@ -19,8 +19,11 @@ exports.handler = function(event, context) {
     var service = alarmName.split("__")[1];
     var metric = alarmName.split("__")[2];
     var severity = alarmName.split("__")[3];
+    var severityText = severity;
+
     if (eventMessage.NewStateValue == "OK") {
-        severity='ok';
+        severity="ok";
+        severityText="ok (was "+severityText+")";
         if (eventMessage.OldStateValue =="INSUFFICIENT_DATA") {
             return 0;//do not want to generate alert simply moving from insufficient data to ok
             }
