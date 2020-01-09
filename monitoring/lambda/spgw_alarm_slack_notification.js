@@ -88,7 +88,7 @@ exports.handler = function(event, context) {
      }
      else
      { textMessage=textMessage
-                + "\n\nNo Action Required";
+                + "\n\n:ok: No Action Required :-)";
 
      }
     textMessage=textMessage+debug;

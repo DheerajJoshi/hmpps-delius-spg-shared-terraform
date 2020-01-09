@@ -1,5 +1,5 @@
 resource "aws_cloudwatch_metric_alarm" "spgw_iso_alert_warning" {
-  alarm_name = "${local.short_environment_name}__spgw-iso__auditalert__warning"
+  alarm_name = "${local.short_environment_name}__spgw__iso-audit-alert__warning"
 
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
@@ -21,7 +21,7 @@ EOF
 }
 
 resource "aws_cloudwatch_metric_alarm" "spgw_iso_exception_warning" {
-  alarm_name = "${local.short_environment_name}__spgw-iso__logexception__warning"
+  alarm_name = "${local.short_environment_name}__spgw__iso-log-exception__warning"
 
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = "1"
