@@ -76,9 +76,16 @@
           [ "...", "outbound.alfresco" ]
         ],
         "region": "eu-west-2",
-        "title": "queue size"
+        "title": "queue size",
+        "period": 60,
+        "stat": "Average"
+
       }
     },
+
+
+
+
     {
       "type": "metric",
       "x": 0,
@@ -87,7 +94,7 @@
       "height": 6,
       "properties": {
         "metrics": [
-          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "dlc-dev-SPG-AMQ-Broker-1", "Queue", "toSPGQueue" ],
+          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-1", "Queue", "toSPGQueue" ],
           [ "...", "outbound.delius" ],
           [ "...", "outbound.crc.MTC" ],
           [ "...", "FromNDeliusError.DLQ" ],
@@ -102,7 +109,7 @@
           [ "...", "fromDocumentRepository" ],
           [ "...", "ActiveMQ.DLQ" ],
 
-          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "dlc-dev-SPG-AMQ-Broker-2", "Queue", "toSPGQueue" ],
+          [ "AWS/AmazonMQ", "InFlightCount", "Broker", "${hmpps_asset_name_prefix}-SPG-AMQ-Broker-2", "Queue", "toSPGQueue" ],
           [ "...", "outbound.delius" ],
           [ "...", "outbound.crc.MTC" ],
           [ "...", "FromNDeliusError.DLQ" ],
@@ -121,7 +128,7 @@
         "stacked": false,
         "region": "eu-west-2",
         "title": "inflight count",
-        "period": 300,
+        "period": 60,
         "stat": "Average"
       }
     },
@@ -166,9 +173,18 @@
           [ "...", "fromDocumentRepository" ]
         ],
         "region": "eu-west-2",
-        "title": "Enqueue Count"
+        "title": "Enqueue Count",
+        "period": 60,
+        "stat": "Average"
+
       }
     },
+
+
+
+
+
+
     {
       "type": "metric",
       "x": 0,
@@ -211,7 +227,7 @@
         "stacked": false,
         "region": "eu-west-2",
         "title": "Enqueue Time",
-        "period": 300,
+        "period": 60,
         "stat": "Average"
       }
     }
