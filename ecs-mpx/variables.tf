@@ -88,3 +88,7 @@ variable PO_SPG_CONFIGURATION {
   description ="map of PO configs"
   type="map"
 }
+
+variable deployment_minimum_healthy_percent {
+  default= "100"
+}
