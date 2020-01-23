@@ -19,3 +19,9 @@ variable "tags" {
   type        = "map"
   description = "Default tag set"
 }
+
+variable "lambda_runtime" {
+  description = "Lambda runtime"
+  type        = "string"
+  default     = "nodejs12.x"
+}

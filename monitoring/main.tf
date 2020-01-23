@@ -6,7 +6,7 @@ terraform {
 
 provider "aws" {
   region  = "${var.region}"
-  version = "~> 2.1.0"
+  version = "~> 2.45.0"
 }
 
 # Shared data and constants
