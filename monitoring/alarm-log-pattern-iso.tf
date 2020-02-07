@@ -2,7 +2,7 @@ module "iso_exceptions" {
   source                 = "../modules/log_pattern_alarm"
   log_group_name         = "${local.iso_log_group_name}"
   name                   = "iso-log-pattern-exceptions"
-  pattern                = "\"Exception\" -\"statusCode: 404\"" #exclude 404 responses from alfresco
+  pattern                = "\"Exception\" -\"with statusCode\"" #exclude error responses from alfresco which are wrapped by exception handler
   short_environment_name = "${local.short_environment_name}"
   alarm_notification_arn = "${aws_sns_topic.alarm_notification.arn}"
 }
