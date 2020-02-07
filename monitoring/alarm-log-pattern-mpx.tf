@@ -2,7 +2,7 @@ module "mpx_exceptions" {
   source                 = "../modules/log_pattern_alarm"
   log_group_name         = "${local.mpx_log_group_name}"
   name                   = "mpx-log-pattern-exceptions"
-  pattern                = "Exception"
+  pattern                = "\"Exception\" -\"logAbsorbedMessage\""  #exclude logAbsorbedmessage exceptions as they are expected
   short_environment_name = "${local.short_environment_name}"
   alarm_notification_arn = "${aws_sns_topic.alarm_notification.arn}"
 }
