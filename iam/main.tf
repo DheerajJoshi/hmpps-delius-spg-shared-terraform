@@ -29,6 +29,7 @@ locals {
   ec2_internal_mpx_policy_file                   = "../policies/ec2_mpx_internal_policy.json"
   ec2_internal_crc_policy_file                   = "../policies/ec2_crc_internal_policy.json"
   ec2_external_iso_policy_file                   = "../policies/ec2_iso_external_policy.json"
+  ec2_external_haproxy_policy_file               = "../policies/ec2_haproxy_external_policy.json"
   ecs_module_default_assume_role_policy_file     = "ecs_policy.json"
   ecs_role_policy_file                           = "../policies/ecs_role_policy.json"
   backups-bucket-name                            = "${var.backups-bucket-name}"

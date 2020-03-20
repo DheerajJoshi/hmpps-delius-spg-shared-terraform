@@ -15,6 +15,9 @@ output "parent_orgs_spg_ingress_sg_id" {
   value = "${aws_security_group.parent_orgs_spg_ingress.id}"
 }
 
+output "haproxy_external_instance_sg_id" {
+  value = "${aws_security_group.external_haproxy_instance.id}"
+}
 
 
 

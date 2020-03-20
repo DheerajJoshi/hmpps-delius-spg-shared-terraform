@@ -1,0 +1,28 @@
+[
+    {
+        "requires_compatibilities": "EC2",
+        "memory": ${ecs_memory},
+        "essential": true,
+        "image": "${image_url}:${version}",
+        "name": "${container_name}",
+        "mountPoints": [
+            {
+                "sourceVolume": "${data_volume_name}",
+                "containerPath": "${data_volume_host_path}",
+                "readOnly": false
+            }
+],
+        "portMappings": [
+            {
+            "hostPort": 9001,
+            "protocol": "tcp",
+            "containerPort": 9001
+            },
+            {
+            "hostPort": 8989,
+            "protocol": "tcp",
+            "containerPort": 8989
+            }
+        ]
+    }
+]
