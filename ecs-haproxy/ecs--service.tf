@@ -8,6 +8,47 @@ module "ecs_cluster" {
   cluster_name = "${local.common_name}"
 }
 
+
+
+############################################
+# CREATE LOG GROUPS FOR CONTAINER LOGS
+############################################
+
+module "create_loggroup" {
+  source                   = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//cloudwatch//loggroup"
+  log_group_path           = "${local.short_environment_name}"
+  loggroupname             = "${local.app_name}-${local.app_submodule}"
+  cloudwatch_log_retention = "${local.cloudwatch_log_retention}"
+  tags                     = "${local.tags}"
+}
+
+
+############################################
+# CREATE ECS SERVICES
+############################################
+
+
+#with predefined alb or nlb
+
+module "app_service" {
+  source                             = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//ecs/ecs_service//noloadbalancer//elb"
+  servicename                        = "${local.common_name}"
+  clustername                        = "${module.ecs_cluster.ecs_cluster_id}"
+  ecs_service_role                   = "${local.ecs_service_role}"
+  service_desired_count              = "1"
+  //  target_group_arn                   = "${module.create_app_nlb_ext_targetgrp.target_group_arn}"
+  //  containername                      = "${local.app_name}-${local.app_submodule}"
+  //  containerport                      = "${local.backend_app_port}"
+  //  app_task_definition                 = "${module.app_task_definition.task_definition_family}"
+  task_definition_family             = "${module.app_task_definition.task_definition_family}"
+  task_definition_revision           = "${module.app_task_definition.task_definition_revision}"
+  current_task_definition_version    = "${data.aws_ecs_task_definition.app_task_definition.revision}"
+  service_desired_count              = "${local.service_desired_count}"
+  deployment_minimum_healthy_percent = "${var.deployment_minimum_healthy_percent}"
+}
+
+
+
 ############################################
 # CREATE USER DATA FOR EC2 RUNNING SERVICES
 ############################################
@@ -21,9 +62,10 @@ data "template_file" "user_data" {
     env_identifier = "${local.environment_identifier}"
     short_env_identifier = "${local.short_environment_name}"
     cluster_name = "${module.ecs_cluster.ecs_cluster_name}"
+    log_group_name = "${module.create_loggroup.loggroup_name}"
     container_name = "${local.app_name}-${local.app_submodule}"
     bastion_inventory    = "${var.bastion_inventory}"
-    log_group_name       = "${module.create_loggroup.loggroup_name}"
+
     data_volume_host_path      = "${local.data_volume_host_path}"
     data_volume_name           = "${local.data_volume_name}"
     esc_container_stop_timeout = "${var.esc_container_stop_timeout}"
@@ -39,7 +81,7 @@ module "launch_cfg" {
   image_id                    = "${local.ami_id}"
   instance_type               = "${local.instance_type}"
   volume_size                 = "${local.volume_size}"
-  instance_profile            =  "${local.instance_profile}"
+  instance_profile            = "${local.instance_profile}"
   key_name                    = "${local.ssh_deployer_key}"
   ebs_device_name             = "${local.ebs_device_name}"
   ebs_volume_type             = "${local.ebs_volume_type}"
@@ -65,39 +107,4 @@ module "auto_scale" {
   launch_configuration = "${module.launch_cfg.launch_name}"
   tags                 = "${local.tags}"
 }
-
-//############################################
-//# CREATE LOG GROUPS FOR CONTAINER LOGS
-//############################################
-
-module "create_loggroup" {
-  source                   = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//cloudwatch//loggroup"
-  log_group_path           = "${local.short_environment_name}"
-  loggroupname             = "${local.app_name}-${local.app_submodule}"
-  cloudwatch_log_retention = "${local.cloudwatch_log_retention}"
-  tags                     = "${local.tags}"
-}
-
-############################################
-# CREATE ECS SERVICES
-############################################
-
-
-#with predefined alb or nlb
-
-//module "app_service" {
-//  source                             = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//ecs/ecs_service//withloadbalancer//alb"
-//  servicename                        = "${local.common_name}"
-//  clustername                        = "${module.ecs_cluster.ecs_cluster_id}"
-//  ecs_service_role                   = "${local.ecs_service_role}"
-//  target_group_arn                   = "${module.create_app_nlb_ext_targetgrp.target_group_arn}"
-//  containername                      = "${local.app_name}-${local.app_submodule}"
-//  containerport                      = "${local.backend_app_port}"
-//  task_definition_family             = "${module.app_task_definition.task_definition_family}"
-//  task_definition_revision           = "${module.app_task_definition.task_definition_revision}"
-//  current_task_definition_version    = "${data.aws_ecs_task_definition.app_task_definition.revision}"
-//  service_desired_count              = "${local.service_desired_count}"
-//  deployment_minimum_healthy_percent = "${var.deployment_minimum_healthy_percent}"
-//}
-
 
