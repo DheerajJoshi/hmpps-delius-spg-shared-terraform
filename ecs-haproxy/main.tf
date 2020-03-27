@@ -87,9 +87,9 @@ locals {
   public_subnet_ids = [
     "${data.terraform_remote_state.common.public_subnet_ids}"]
   az_lb_eip_allocation_ids = [
-    "${data.terraform_remote_state.persistent_eip.spg_az1_lb_eip.allocation_id}",
-    "${data.terraform_remote_state.persistent_eip.spg_az2_lb_eip.allocation_id}",
-    "${data.terraform_remote_state.persistent_eip.spg_az3_lb_eip.allocation_id}",
+    "${data.terraform_remote_state.persistent_eip.spg_dpg_az1_lb_eip.allocation_id}",
+    "${data.terraform_remote_state.persistent_eip.spg_dpg_az2_lb_eip.allocation_id}",
+    "${data.terraform_remote_state.persistent_eip.spg_dpg_az3_lb_eip.allocation_id}",
   ]
 
 
@@ -115,7 +115,7 @@ locals {
   instance_security_groups = [
     "${data.terraform_remote_state.vpc-security-groups.sg_ssh_bastion_in_id}",
     "${data.terraform_remote_state.security-groups-and-rules.spg_common_outbound_sg_id}",
-//    "${data.terraform_remote_state.security-groups-and-rules.haproxy_external_instance_sg_id}", ---
+    "${data.terraform_remote_state.security-groups-and-rules.iso_external_instance_sg_id}",
     "${data.terraform_remote_state.security-groups-and-rules.parent_orgs_spg_ingress_sg_id}",
   "${data.terraform_remote_state.security-groups-and-rules.external_9001_from_vpc_public_ips_sg_id}"
 

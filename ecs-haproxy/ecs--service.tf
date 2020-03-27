@@ -31,15 +31,13 @@ module "create_loggroup" {
 #with predefined alb or nlb
 
 module "app_service" {
-  source                             = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//ecs/ecs_service//noloadbalancer//elb"
+  source                             = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//ecs/ecs_service//withloadbalancer//alb"
   servicename                        = "${local.common_name}"
   clustername                        = "${module.ecs_cluster.ecs_cluster_id}"
   ecs_service_role                   = "${local.ecs_service_role}"
-  service_desired_count              = "1"
-  //  target_group_arn                   = "${module.create_app_nlb_ext_targetgrp.target_group_arn}"
-  //  containername                      = "${local.app_name}-${local.app_submodule}"
-  //  containerport                      = "${local.backend_app_port}"
-  //  app_task_definition                 = "${module.app_task_definition.task_definition_family}"
+  target_group_arn                   = "${module.create_app_nlb_ext_targetgrp.target_group_arn}"
+  containername                      = "${local.app_name}-${local.app_submodule}"
+  containerport                      = "${local.backend_app_port}"
   task_definition_family             = "${module.app_task_definition.task_definition_family}"
   task_definition_revision           = "${module.app_task_definition.task_definition_revision}"
   current_task_definition_version    = "${data.aws_ecs_task_definition.app_task_definition.revision}"

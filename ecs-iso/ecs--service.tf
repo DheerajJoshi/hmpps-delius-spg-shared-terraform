@@ -105,3 +105,4 @@ module "auto_scale" {
   launch_configuration = "${module.launch_cfg.launch_name}"
   tags                 = "${local.tags}"
 }
+

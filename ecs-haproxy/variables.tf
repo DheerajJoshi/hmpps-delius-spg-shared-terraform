@@ -8,7 +8,7 @@ variable "remote_state_bucket_name" {
 
 variable "s3_bucket_config" {}
 
-variable "asg_instance_type_haproxy" {default = "t2.medium"}
+variable "asg_instance_type_haproxy" {default = "t2.small"}
 variable "cloudwatch_log_retention" {}
 
 
