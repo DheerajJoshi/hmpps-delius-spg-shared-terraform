@@ -98,10 +98,18 @@
             "containerPort": 9001
             },
             {
-            "hostPort": 8989,
+            "hostPort": 8181,
             "protocol": "tcp",
-            "containerPort": 8989
+            "containerPort": 8181
             }
-        ]
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "${log_group_name}",
+                "awslogs-region": "${log_group_region}",
+                "awslogs-stream-prefix": "ecs-${container_name}"
+            }
+        }
     }
 ]

@@ -151,10 +151,8 @@ locals {
   s3_bucket_config = "${var.s3_bucket_config}"
   #vars for docker container
   kibana_host           = "NOTUSED(yet)"
-  data_volume_host_path = "/opt/spg/servicemix/data"
-  data_volume_name      = "spg"
-  user_data             = "../user_data/spg_user_data.sh"
-
+  data_volume_host_path = "/usr/local/etc/haproxy"
+  data_volume_name      = "haproxy"
 
   SPG_HOST_TYPE         = "${var.SPG_ISO_HOST_TYPE}"
   SPG_GENERIC_BUILD_INV_DIR = "${var.SPG_GENERIC_BUILD_INV_DIR}"

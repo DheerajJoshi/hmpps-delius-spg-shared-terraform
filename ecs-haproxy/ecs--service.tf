@@ -52,21 +52,22 @@ module "app_service" {
 ############################################
 
 data "template_file" "user_data" {
-  template = "${file("${local.user_data}")}"
+  template = "${file("${path.module}/user_data/user_data.haproxy.sh")}"
 
   vars {
-    ebs_device = "${local.ebs_device_name}"
-    app_name = "${local.app_name}-${local.app_submodule}}"
-    env_identifier = "${local.environment_identifier}"
-    short_env_identifier = "${local.short_environment_name}"
-    cluster_name = "${module.ecs_cluster.ecs_cluster_name}"
-    log_group_name = "${module.create_loggroup.loggroup_name}"
-    container_name = "${local.app_name}-${local.app_submodule}"
-    bastion_inventory    = "${var.bastion_inventory}"
+    ebs_device                 = "${local.ebs_device_name}"
+    app_name                   = "${local.app_name}-${local.app_submodule}}"
+    env_identifier             = "${local.environment_identifier}"
+    short_env_identifier       = "${local.short_environment_name}"
+    cluster_name               = "${module.ecs_cluster.ecs_cluster_name}"
+    log_group_name             = "${module.create_loggroup.loggroup_name}"
+    container_name             = "${local.app_name}-${local.app_submodule}"
+    bastion_inventory          = "${var.bastion_inventory}"
 
     data_volume_host_path      = "${local.data_volume_host_path}"
     data_volume_name           = "${local.data_volume_name}"
     esc_container_stop_timeout = "${var.esc_container_stop_timeout}"
+    haproxy_cfg                = "${data.template_file.haproxy_cfg.rendered}"
   }
 }
 ############################################

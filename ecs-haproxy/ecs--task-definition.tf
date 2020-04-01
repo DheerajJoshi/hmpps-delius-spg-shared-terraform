@@ -19,6 +19,12 @@ data "template_file" "po_configuration" {
   }
 }
 
+
+data "template_file" "haproxy_cfg" {
+  template = "${file("${path.module}/templates/haproxy.cfg.tpl")}"
+}
+
+
 data "template_file" "app_task_definition" {
   template = "${file("task_definitions/template.json")}"
 
@@ -37,6 +43,9 @@ data "template_file" "app_task_definition" {
     data_volume_name      = "${local.data_volume_name}"
 
     s3_bucket_config      = "${local.s3_bucket_config}"
+
+    log_group_name        = "${module.create_loggroup.loggroup_name}"
+    log_group_region      = "${var.region}"
 
 
     SPG_HOST_TYPE = "${local.SPG_HOST_TYPE}"

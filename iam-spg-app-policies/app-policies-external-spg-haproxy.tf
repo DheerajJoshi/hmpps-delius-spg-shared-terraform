@@ -18,5 +18,5 @@ data "template_file" "iam_policy_app_haproxy_ext" {
 module "create-iam-app-policy-haproxy-ext" {
   source     = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//iam//rolepolicy"
   policyfile = "${data.template_file.iam_policy_app_haproxy_ext.rendered}"
-  rolename   = "${data.terraform_remote_state.iam.iam_policy_haproxy_ext_app_role_name}"
+  rolename   = "${data.terraform_remote_state.iam.iam_policy_hap_ext_app_role_name}"
 }

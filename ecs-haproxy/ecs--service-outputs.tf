@@ -64,8 +64,4 @@ output "autoscale_name" {
 }
 
 
-output "spg_name" {
-  value = "${local.app_name}-${local.app_submodule}"
-}
-
 
