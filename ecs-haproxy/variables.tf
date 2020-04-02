@@ -52,6 +52,16 @@ variable PO_SPG_CONFIGURATION {
   type="map"
 }
 
+variable SPG_ENV_VARS {
+  description ="map of SPG environment vars"
+  type="map"
+  default = {
+    SPG_NO_ENV_VARS_SET = true
+  }
+}
+
+
+
 variable "deployment_minimum_healthy_percent" {
   default = "50"
 }
