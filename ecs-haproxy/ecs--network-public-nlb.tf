@@ -17,7 +17,7 @@
 ############################################
 module "create_app_nlb_ext" {
   //  original source              = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//loadbalancer//alb//create_lb"
-  source                    = "../modules/loadbalancer/nlb/create_public_nlb"
+  source                    = "../modules/loadbalancer/nlb/create_public_nlb_dynamic_ip"
 
   az_lb_eip_allocation_ids  = "${local.az_lb_eip_allocation_ids}"
   internal                  = false
@@ -37,7 +37,7 @@ module "create_app_nlb_ext" {
 ###strategic - only create if the primary zone id is different to the strategic one
 resource "aws_route53_record" "strategic_dns_ext_entry" {
   zone_id = "${local.strategic_public_zone_id}"
-  name    = "${local.application_endpoint}-dpg-ext"
+  name    = "${local.application_endpoint}-prototype-ext"
   type    = "A"
 
   alias {

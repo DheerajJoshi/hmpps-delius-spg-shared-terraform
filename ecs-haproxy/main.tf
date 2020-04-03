@@ -86,11 +86,8 @@ locals {
     "${data.terraform_remote_state.common.private_subnet_ids}"]
   public_subnet_ids = [
     "${data.terraform_remote_state.common.public_subnet_ids}"]
-  az_lb_eip_allocation_ids = [
-    "${data.terraform_remote_state.persistent_eip.spg_dpg_az1_lb_eip.allocation_id}",
-    "${data.terraform_remote_state.persistent_eip.spg_dpg_az2_lb_eip.allocation_id}",
-    "${data.terraform_remote_state.persistent_eip.spg_dpg_az3_lb_eip.allocation_id}",
-  ]
+
+
 
 
   ########################################################################################################
