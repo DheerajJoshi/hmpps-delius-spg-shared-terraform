@@ -83,9 +83,7 @@ variable SPG_GATEWAY_MQ_URL {}
 variable SPG_DOCUMENT_REST_SERVICE_ADMIN_URL {}
 variable SPG_DOCUMENT_REST_SERVICE_PUBLIC_URL {}
 
-variable SPG_ISO_FQDN {}
-variable SPG_MPX_FQDN {}
-variable SPG_CRC_FQDN {}
+variable SPG_PROXY_FQDN {}
 variable SPG_ENVIRONMENT_CODE {}
 variable SPG_ENVIRONMENT_CN {}
 

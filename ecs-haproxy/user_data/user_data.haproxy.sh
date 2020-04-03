@@ -111,8 +111,6 @@ yum install -y \
     wget \
     yum-utils
 
-echo 'preppip' > /tmp/paul.log
-
 easy_install pip
 
 PATH=/usr/local/bin:$PATH
@@ -183,3 +181,10 @@ cat << EOF >> /usr/local/etc/haproxy/haproxy.cfg
 ${haproxy_cfg}
 
 EOF
+
+cat << EOF >> /usr/local/etc/haproxy/bootstrap.sh
+${bootstrap_cfg}
+
+EOF
+
+bash /usr/local/etc/haproxy/bootstrap.sh

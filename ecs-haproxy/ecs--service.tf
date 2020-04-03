@@ -68,6 +68,7 @@ data "template_file" "user_data" {
     data_volume_name           = "${local.data_volume_name}"
     esc_container_stop_timeout = "${var.esc_container_stop_timeout}"
     haproxy_cfg                = "${data.template_file.haproxy_cfg.rendered}"
+    bootstrap_cfg              = "${data.template_file.bootstrap_certs_cfg.rendered}"
   }
 }
 ############################################

@@ -1,17 +1,6 @@
-############################################
-# CREATE ECS TASK DEFINTIONS
-############################################
-
-data "aws_ecs_task_definition" "app_task_definition" {
-  task_definition = "${module.app_task_definition.task_definition_family}"
-  depends_on      = ["module.app_task_definition"]
-}
-
-
 data "template_file" "po_configuration" {
   template = "${file("task_definitions/key_value_pair.tpl.json")}"
   count = "${length(var.PO_SPG_CONFIGURATION)}"
-
 
   vars {
     name = "${element(keys(var.PO_SPG_CONFIGURATION),count.index)}"
@@ -19,10 +8,10 @@ data "template_file" "po_configuration" {
   }
 }
 
+
 data "template_file" "spg_env_configuration" {
   template = "${file("task_definitions/key_value_pair.tpl.json")}"
   count = "${length(var.SPG_ENV_VARS)}"
-
 
   vars {
     name = "${element(keys(var.SPG_ENV_VARS),count.index)}"
@@ -30,12 +19,9 @@ data "template_file" "spg_env_configuration" {
   }
 }
 
-
-
 data "template_file" "haproxy_cfg" {
   template = "${file("${path.module}/templates/haproxy.cfg.tpl")}"
 }
-
 
 data "template_file" "app_task_definition" {
   template = "${file("task_definitions/template.json")}"
@@ -67,18 +53,17 @@ data "template_file" "app_task_definition" {
     SPG_ENVIRONMENT_CODE = "${local.SPG_ENVIRONMENT_CODE}"
     SPG_ENVIRONMENT_CN = "${local.SPG_ENVIRONMENT_CN}"
     SPG_AWS_REGION = "${local.SPG_AWS_REGION}"
+    SPG_PROXY_FQDN = "${local.SPG_PROXY_FQDN}"
   }
 }
 
-module "app_task_definition" {
-  source   = "..//modules//ecs_task"
-  app_name = "${local.container_name}"
-  hmpps_asset_name_prefix = "${local.hmpps_asset_name_prefix}"
+data "template_file" "bootstrap_certs_cfg" {
+  template = "${file("${path.module}/templates/bootstrap.cfg.tpl")}"
 
-  container_name        = "${local.container_name}"
-  container_definitions = "${data.template_file.app_task_definition.rendered}"
-
-  data_volume_host_path = "${local.data_volume_host_path}"
-  data_volume_name      = "${local.data_volume_name}"
-
+  vars {
+    SPG_CERTIFICATE_BUCKET = "${var.PO_SPG_CONFIGURATION["SPG_CERTIFICATE_BUCKET"]}"
+    SPG_CERTIFICATE_PATH = "${var.PO_SPG_CONFIGURATION["SPG_CERTIFICATE_PATH"]}"
+    SPG_PROXY_FQDN = "${local.SPG_PROXY_FQDN}"
+  }
 }
+
