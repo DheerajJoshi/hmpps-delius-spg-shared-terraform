@@ -18,7 +18,6 @@
 module "create_app_nlb_ext" {
   //  original source              = "git::https://github.com/ministryofjustice/hmpps-terraform-modules.git?ref=master//modules//loadbalancer//alb//create_lb"
   source                    = "../modules/loadbalancer/nlb/create_public_nlb_dynamic_ip"
-
   internal                  = false
   lb_name                   = "${local.common_name}"
   public_subnet_ids         = "${local.public_subnet_ids}"
