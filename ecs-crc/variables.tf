@@ -72,3 +72,14 @@ variable PO_SPG_CONFIGURATION {
   description ="map of PO configs"
   type="map"
 }
+
+variable "esc_container_stop_timeout" {
+  default = "310s"
+}
+
+variable "deployment_minimum_healthy_percent_crc" {
+  default = "100"
+
+  //default as 0 to ensure ECS task deployments are always affected (crc is nearly always only 1 server)
+  //there is no important data / processes to preserve as only MTS in test use crc and deployments are always scheduled
+}

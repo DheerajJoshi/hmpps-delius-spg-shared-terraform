@@ -11,8 +11,8 @@ output "common_account_id" {
 
 
 # S3 Buckets
-output "common_s3-config-bucket" {
-  value = "${module.s3config_bucket.s3_bucket_name}"
+output "common_s3_backups_bucket" {
+  value = "${module.s3_backups_bucket.s3_bucket_name}"
 }
 
 output "common_s3_lb_logs_bucket" {

@@ -6,10 +6,9 @@ data "template_file" "iam_policy_app_mpx_int" {
   template = "${file(local.ec2_internal_mpx_policy_file)}"
 
   vars {
-    s3-config-bucket       = "${local.s3-config-bucket}"
+    backups-bucket               = "${local.backups-bucket-name}"
     s3-certificates-bucket = "${local.s3-certificates-bucket}"
     app_role_arn           = "${data.terraform_remote_state.iam.iam_policy_mpx_int_app_role_arn}"
-    backups-bucket         = "${local.environment_identifier}-${local.backups-bucket-name}"
     decryptable_certificate_keys  = "${jsonencode(local.keys_decrytable_by_mpx)}"
   }
 }
