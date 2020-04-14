@@ -19,7 +19,6 @@ state_file = /var/lib/awslogs/agent-state
 [application_log]
 #check for *.log* so that if any logs roll over whilst cloudwatch is offline, they will still be picked up
 file = /var/log/${container_name}/*.log*
-#servicemix log is/was \nDATE\nMODULE\nOUTPUT so requires 4 lines for fingerprint to determine new content is being written to file
 file_fingerprint_lines = 1-4
 datetime_format = %Y-%m-%dT%H:%M:%S.%f%z
 multi_line_start_pattern = {datetime_format}
@@ -176,7 +175,6 @@ alias | grep dcont
 EOF
 
 # Configure HAProxy
-mv /usr/local/etc/haproxy/haproxy.cfg /usr/local/etc/haproxy/haproxy.cfg.orig
 cat << EOF >> /usr/local/etc/haproxy/haproxy.cfg
 ${haproxy_cfg}
 

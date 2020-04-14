@@ -1,5 +1,6 @@
 global
     daemon
+    log 127.0.0.1:514  local0
     stats socket /var/run/haproxy.sock mode 777 level admin
     maxconn 4096
     nbproc 1
@@ -23,11 +24,13 @@ backend http-spg-server
     mode tcp
     server spg-server8181 spgw-mpx-int.sandpit.delius-core.probation.hmpps.dsd.io:8181
 
-# TODO: might need to add - ca-file /usr/local/etc/haproxy/ca.pem
 frontend https-in
-    bind *:9001 ssl verify required crt /usr/local/etc/haproxy/server.pem
-    reqadd X-Forwarded-Proto:\ https
+    bind *:9001 ssl verify required crt /usr/local/etc/haproxy/server.pem ca-file /usr/local/etc/haproxy/ca.pem
     default_backend http-spg-balance
+    log global
+    option httplog
+    option forwardfor
+    option abortonclose
 
 # The clustered MPX-ISO Hybrid Servers over http (TLS handled by frontend)
 backend http-spg-balance

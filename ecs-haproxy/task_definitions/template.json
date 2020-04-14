@@ -10,6 +10,11 @@
                 "sourceVolume": "${data_volume_name}",
                 "containerPath": "${data_volume_host_path}",
                 "readOnly": false
+            },
+            {
+                "sourceVolume": "${log_volume_name}",
+                "containerPath": "${log_volume_host_path}",
+                "readOnly": false
             }
 ],  "environment": [
 

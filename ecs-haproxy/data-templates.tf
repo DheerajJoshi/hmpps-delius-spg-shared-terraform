@@ -41,6 +41,9 @@ data "template_file" "app_task_definition" {
     data_volume_host_path = "${local.data_volume_host_path}"
     data_volume_name      = "${local.data_volume_name}"
 
+    log_volume_name      = "${local.log_volume_name}"
+    log_volume_host_path = "${local.log_volume_host_path}"
+
     s3_bucket_config      = "${local.s3_bucket_config}"
 
     log_group_name        = "${module.create_loggroup.loggroup_name}"

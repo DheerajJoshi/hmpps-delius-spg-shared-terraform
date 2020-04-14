@@ -142,14 +142,17 @@ locals {
   image_version         = "${var.image_version}"
   ecs_memory             = "${var.spg_haproxy_ecs_memory}"
   #regular config bucket - not sure what this is used for yet
-  config-bucket = "${data.terraform_remote_state.common.common_s3-config-bucket}"
   #vars for docker app
   #s3 bucket for ANISBLE jobs (derived from env properties
   s3_bucket_config = "${var.s3_bucket_config}"
   #vars for docker container
   kibana_host           = "NOTUSED(yet)"
+  # Haproxy volume
   data_volume_host_path = "/usr/local/etc/haproxy"
   data_volume_name      = "haproxy"
+  # Log volume
+  log_volume_host_path = "/var/log/haproxy"
+  log_volume_name      = "haproxy-log"
 
   SPG_HOST_TYPE         = "${var.SPG_ISO_HOST_TYPE}"
   SPG_GENERIC_BUILD_INV_DIR = "${var.SPG_GENERIC_BUILD_INV_DIR}"
