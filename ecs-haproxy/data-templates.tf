@@ -21,6 +21,9 @@ data "template_file" "spg_env_configuration" {
 
 data "template_file" "haproxy_cfg" {
   template = "${file("${path.module}/templates/haproxy.cfg.tpl")}"
+  vars {
+    SPG_MPX_FQDN = "${local.SPG_MPX_FQDN}"
+  }
 }
 
 data "template_file" "app_task_definition" {
@@ -49,8 +52,6 @@ data "template_file" "app_task_definition" {
     log_group_name        = "${module.create_loggroup.loggroup_name}"
     log_group_region      = "${var.region}"
 
-
-    SPG_HOST_TYPE = "${local.SPG_HOST_TYPE}"
     SPG_GENERIC_BUILD_INV_DIR = "${local.SPG_GENERIC_BUILD_INV_DIR}"
     SPG_JAVA_MAX_MEM = "${local.SPG_JAVA_MAX_MEM}"
     SPG_ENVIRONMENT_CODE = "${local.SPG_ENVIRONMENT_CODE}"
@@ -61,7 +62,7 @@ data "template_file" "app_task_definition" {
 }
 
 data "template_file" "bootstrap_certs_cfg" {
-  template = "${file("${path.module}/templates/bootstrap.cfg.tpl")}"
+  template = "${file("${path.module}/templates/certs-bootstrap.cfg.tpl")}"
 
   vars {
     SPG_CERTIFICATE_BUCKET = "${var.PO_SPG_CONFIGURATION["SPG_CERTIFICATE_BUCKET"]}"

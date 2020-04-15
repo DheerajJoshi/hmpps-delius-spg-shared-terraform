@@ -29,11 +29,6 @@
     },
 
     {
-        "name": "SPG_HOST_TYPE",
-        "value": "${SPG_HOST_TYPE}"
-    },
-
-    {
         "name": "SPG_GENERIC_BUILD_INV_DIR",
         "value": "${SPG_GENERIC_BUILD_INV_DIR}"
     },

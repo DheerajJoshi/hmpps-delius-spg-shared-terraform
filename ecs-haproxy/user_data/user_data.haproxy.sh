@@ -18,12 +18,12 @@ state_file = /var/lib/awslogs/agent-state
 
 [application_log]
 #check for *.log* so that if any logs roll over whilst cloudwatch is offline, they will still be picked up
-file = /var/log/${container_name}/*.log*
-file_fingerprint_lines = 1-4
-datetime_format = %Y-%m-%dT%H:%M:%S.%f%z
-multi_line_start_pattern = {datetime_format}
+file = /var/log/haproxy/**/haproxy-all.log
+#file_fingerprint_lines = 1-4
+#datetime_format = %Y-%m-%dT%H:%M:%S.%f%z
+#multi_line_start_pattern = {datetime_format}
 log_group_name = ${log_group_name}
-log_stream_name = {hostname}/{container_instance_id}/application
+log_stream_name = {hostname}/haproxy/application
 
 [/var/log/dmesg]
 file = /var/log/dmesg
@@ -153,22 +153,21 @@ ansible-playbook ~/bootstrap-users.yml
 EOF
 
 cat << 'EOF' >> ~/.bashrc
-alias dcontainergetspgid='SPG_CONTAINER_ID="$(docker container ps | grep spg | egrep -o ^[[:alnum:]]*)"'
-alias dcontainerattachtospg='dcontainergetspgid;docker container exec -it $SPG_CONTAINER_ID /bin/bash'
-alias dcontainerstopspg='dcontainergetspgid;docker container stop $SPG_CONTAINER_ID'
+alias dcontainergethaproxyid='HAPROXY_CONTAINER_ID="$(docker container ps | grep haproxy | egrep -o ^[[:alnum:]]*)"'
+alias dcontainerattachtohaproxy='dcontainergethaproxyid;docker container exec -it $HAPROXY_CONTAINER_ID /bin/bash'
+alias dcontainerstophaproxy='dcontainergethaproxyid;docker container stop $HAPROXY_CONTAINER_ID'
 alias dcontainerps='docker container ps'
 alias dcontainerpulllatest='dcontainerpulllatest_function'
-alias dcontainernetworkinspect='dcontainergetspgid;docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $SPG_CONTAINER_ID'
+alias dcontainernetworkinspect='dcontainergethaproxyid;docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $HAPROXY_CONTAINER_ID'
 
 function dcontainerpulllatest_function() {
 region=$(curl http://169.254.169.254/latest/dynamic/instance-identity/document | jq -r .region)
-repo=$(docker images | grep spg | grep latest| egrep -o ^[^[:space:]]*)
+repo=$(docker images | grep haproxy | grep latest| egrep -o ^[^[:space:]]*)
 eval $(aws ecr get-login --no-include-email --region $region  --registry-ids 895523100917)
 docker pull $repo:latest
 }
 
-echo 'SPG Container - type dcontainerattachtospg to attach to container as root.'
-echo 'once logged on, become spg user by typing "su spg"'
+echo 'HAProxy Container - type dcontainerattachtohaproxy to attach to container as root.'
 echo 'other aliases'
 alias | grep dcont
 

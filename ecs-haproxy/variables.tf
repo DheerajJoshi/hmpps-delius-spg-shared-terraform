@@ -12,8 +12,6 @@ variable "asg_instance_type_haproxy" {default = "t2.small"}
 variable "cloudwatch_log_retention" {}
 
 
-
-
 variable spg_haproxy_asg_desired {
   default="1"
 }
@@ -60,8 +58,6 @@ variable SPG_ENV_VARS {
   }
 }
 
-
-
 variable "deployment_minimum_healthy_percent" {
   default = "50"
 }
@@ -70,21 +66,12 @@ variable "esc_container_stop_timeout" {
   default = "310s"
 }
 
-
 variable SPG_GENERIC_BUILD_INV_DIR {}
-
 
 variable SPG_ISO_JAVA_MAX_MEM {}
 
-
-variable SPG_DELIUS_MQ_URL {}
-variable SPG_GATEWAY_MQ_URL {}
-
-variable SPG_DOCUMENT_REST_SERVICE_ADMIN_URL {}
-variable SPG_DOCUMENT_REST_SERVICE_PUBLIC_URL {}
-
 variable SPG_PROXY_FQDN {}
+variable SPG_MPX_FQDN {}
 variable SPG_ENVIRONMENT_CODE {}
 variable SPG_ENVIRONMENT_CN {}
 
-variable SPG_ISO_HOST_TYPE {}

@@ -154,13 +154,13 @@ locals {
   log_volume_host_path = "/var/log/haproxy"
   log_volume_name      = "haproxy-log"
 
-  SPG_HOST_TYPE         = "${var.SPG_ISO_HOST_TYPE}"
   SPG_GENERIC_BUILD_INV_DIR = "${var.SPG_GENERIC_BUILD_INV_DIR}"
   SPG_JAVA_MAX_MEM = "${var.SPG_ISO_JAVA_MAX_MEM}"
   SPG_ENVIRONMENT_CODE = "${var.SPG_ENVIRONMENT_CODE}"
   SPG_ENVIRONMENT_CN = "${var.SPG_ENVIRONMENT_CN}"
   SPG_AWS_REGION = "${data.terraform_remote_state.common.region}"
   SPG_PROXY_FQDN = "${var.SPG_PROXY_FQDN}"
+  SPG_MPX_FQDN = "${var.SPG_MPX_FQDN}"
 
   ########################################################################################################
 

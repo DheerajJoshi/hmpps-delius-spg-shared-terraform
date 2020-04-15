@@ -17,12 +17,13 @@ frontend http-in
     bind *:8181
     mode tcp
     default_backend http-spg-server
+    log global
 
 backend http-spg-server
     timeout connect 10s
     timeout server 300s
     mode tcp
-    server spg-server8181 spgw-mpx-int.sandpit.delius-core.probation.hmpps.dsd.io:8181
+    server spg-server8181 ${SPG_MPX_FQDN}:8181
 
 frontend https-in
     bind *:9001 ssl verify required crt /usr/local/etc/haproxy/server.pem ca-file /usr/local/etc/haproxy/ca.pem
@@ -39,4 +40,4 @@ backend http-spg-balance
     option abortonclose
 
 balance roundrobin
-    server mpx-8181 spgw-mpx-int.sandpit.delius-core.probation.hmpps.dsd.io:8181
+    server mpx-8181 ${SPG_MPX_FQDN}:8181
