@@ -9,7 +9,7 @@ data "template_file" "po_configuration" {
 }
 
 
-data "template_file" "spg_env_configuration" {
+data "template_file" "SPG_ENV_VARS" {
   template = "${file("task_definitions/key_value_pair.tpl.json")}"
   count = "${length(var.SPG_ENV_VARS)}"
 
@@ -31,7 +31,7 @@ data "template_file" "app_task_definition" {
 
   vars {
     po_configuration = "${join(",", data.template_file.po_configuration.*.rendered)}"
-    spg_env_configuration = "${join(",", data.template_file.spg_env_configuration.*.rendered)}"
+    spg_env_configuration = "${join(",", data.template_file.SPG_ENV_VARS.*.rendered)}"
 
     hmpps_asset_name_prefix = "${local.hmpps_asset_name_prefix}"
 
